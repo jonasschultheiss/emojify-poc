@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Emojis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="flex flex-col items-center justify-center my-12 gap-y-6">
+    <h1 class="text-md">Emoji tests</h1>
+    <section class="flex flex-col items-center justify-center gap-y-2 border rounded p-4 pt-2 border-gray-400">
+      <h6 class="text-semibold">unicode</h6>
+      <p class="text-8xl">📫🥳🫣🤩</p>
+      <ul class="">
+        <li>✅ the easiest solution</li>
+        <li>✅ doesn't rely on external system, but on standard</li>
+        <li>✅ can specify one emoji, only that gets loaded</li>
+        <li>❌ different systems render emojis differently</li>
+        <li>❌ Windows emojis look cheap</li>
+      </ul>
+    </section>
+    <section class="flex flex-col items-center justify-center gap-y-2 border rounded p-4 pt-2 border-gray-400">
+      <h6 class="text-semibold">CDN</h6>
+      <span class="flex">
+        <img class="w-24 h-24" src="https://emojicdn.elk.sh/📫?style=apple" />
+        <img class="w-24 h-24" src="https://emojicdn.elk.sh/🥳?style=apple" />
+        <img class="w-24 h-24" src="https://emojicdn.elk.sh/🫣?style=apple" />
+        <img class="w-24 h-24" src="https://emojicdn.elk.sh/🤩?style=apple" />
+      </span>
+      <ul>
+        <li>✅ can specify one emoji, only that gets loaded</li>
+        <li>✅ always looks the same</li>
+        <li>✅ cdn > local files</li>
+        <li>✅ won't have to care about updating</li>
+        <li class="">
+          ❌ two dependencies
+          <ol class="list-disc pl-8 text-blue-500 underline">
+            <li>
+              <a href="https://github.com/benborgers/emojicdn" target="_blank" rel="noreferrer">benborgers/emojicdn</a>
+            </li>
+            <li>
+              <a href="https://github.com/iamcal/emoji-data" target="_blank" rel="noreferrer">iamcal/emoji-data</a>
+            </li>
+          </ol>
+        </li>
+        <li>❌ Might face cumulative layout shift</li>
+      </ul>
+    </section>
+    <section class="flex flex-col items-center justify-center gap-y-2 border rounded p-4 pt-2 border-gray-400">
+      <h6 class="text-semibold">Local images</h6>
+      <span class="flex">
+        <img class="w-24 h-24" src="/images/1.png" />
+        <img class="w-24 h-24" src="/images/2.png" />
+        <img class="w-24 h-24" src="/images/3.png" />
+        <img class="w-24 h-24" src="/images/4.png" />
+      </span>
+      <ul>
+        <li>✅ can specify one emoji, only that gets loaded</li>
+        <li>✅ always looks the same</li>
+        <li>
+          ❌ have to either
+          <ol class="list-disc pl-8">
+            <li>download all emojis (unnecessary)</li>
+            <li>or download JIT, but then time gets wasted looking for sources / quality might differ</li>
+          </ol>
+        </li>
+        <li>❌ Might face cumulative layout shift</li>
+      </ul>
+    </section>
+    <section class="flex flex-col items-center justify-center gap-y-2 border rounded p-4 pt-2 border-gray-400">
+      <h6>My best guess:</h6>
+      <ol class="list-disc">
+        <li>Use CDN</li>
+        <li>
+          Use emoji unicode as alt (alt will not be same size unless we use hacky css)
+          <img src="/images/6.png" alt="📫" />
+        </li>
+        <li>
+          Create component
+          <ol class="list-disc">
+            <li>[Required input]: Unicode</li>
+            <li>[Optional input]: Size -> enum</li>
+            <li>Renders emoji with unicode as fallback</li>
+            <li>
+              As emojis are always same (enum) sizes, -> reserve spacing to prevent cumulative layout shift during load
+              times
+            </li>
+          </ol>
+        </li>
+      </ol>
+    </section>
+  </body>
+</html>
